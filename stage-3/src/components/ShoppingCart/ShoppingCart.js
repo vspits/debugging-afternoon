@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 class ShoppingCart extends Component {
 
     render() {
+        const {removeFromShoppingCart} = this.props
         let shoppingCartDisplay = this.props.shoppingCart.map((element, index) => {
             return (
                 <div className="shopping-cart-product-container" key={index}>
@@ -14,7 +15,7 @@ class ShoppingCart extends Component {
                         <h2>{element.title}</h2>
                         <h2>{"$" + element.price + ".00"}</h2>
                         <div className="shopping-cart-button-container">
-                            <button className="shopping-cart-button" onClick={() => this.props.removeFromShoppingCart(index)}>Remove From Shopping Cart</button>
+                            <button className="shopping-cart-button" onClick={() => removeFromShoppingCart(index)}>Remove From Shopping Cart</button>
                         </div>
                     </div>
                 </div>
@@ -37,4 +38,8 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(ShoppingCart);
+const mapDispatchToState = {
+    removeFromShoppingCart
+}
+
+export default connect(mapStateToProps, mapDispatchToState)(ShoppingCart);

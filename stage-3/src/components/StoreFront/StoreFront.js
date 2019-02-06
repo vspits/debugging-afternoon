@@ -4,13 +4,22 @@ import { connect } from 'react-redux';
 import { addToShoppingCart, getAllProducts } from '../../redux/reducer';
 
 class StoreFront extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+
+        }
+    }
+
 
     componentDidMount() {
-        this.props.getAllProducts();
+        const {getAllProducts} = this.props
+        getAllProducts()
     }
 
     render() {
-        console.log(this.props.products);
+        console.log(this.props.products)
+        const {addToShoppingCart} = this.props
         let productDisplay = this.props.products.map((element, index) => {
             return (
                 <div className="product-container" key={index}>
@@ -18,7 +27,7 @@ class StoreFront extends Component {
                     <img src={element.image} alt="" />
                     <h2>{element.desc}</h2>
                     <h3>{"$" + element.price + ".00"}</h3>
-                    <button onClick={() => this.props.addToShoppingCart(element)}>Purchase!</button>
+                    <button onClick={() => addToShoppingCart(element)}>Purchase!</button>
                 </div>
             )
         })
@@ -30,10 +39,10 @@ class StoreFront extends Component {
     }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (reduxState) => {
     return {
-        products: state.products,
-        loading: state.loading,
+        products: reduxState.products,
+        loading: reduxState.loading
     }
 }
 
